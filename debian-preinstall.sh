@@ -23,4 +23,3 @@ else
         sudo dpkg-reconfigure -f noninteractive dash
 fi
 go get github.com/github-release/github-release
-export PATH=$PATH:$HOME/go/bin

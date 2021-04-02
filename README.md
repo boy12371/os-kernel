@@ -14,6 +14,8 @@ and if you're uploading them, set your GITHUB_TOKEN and login to docker hub, the
 (this requires https://github.com/aktau/github-release to be installed in your path)
 
 ```
+# set go PATH
+export PATH=$PATH:$HOME/go/bin
 # set your token
 export GITHUB_TOKEN=...
 dist/publish.sh
