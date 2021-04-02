@@ -6,9 +6,9 @@
 To build the tgz's and the kernel header & extras images, run:
 
 ```
-git checkout tags/v4.14.98-rancher -b v4.14.98-rancher
+git tag v4.19.91-rancher
 
-KERNEL_TAG=4.14.98 make release
+KERNEL_TAG=4.19.91 make release
 ```
 
 You should build it on an arm64 host if you want to get an arm64 kernel.
