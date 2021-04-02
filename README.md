@@ -1,14 +1,10 @@
-
-
-# Build kernel release archives for use in building RancherOS
-
+# Build kernel release archives for use in building SveilOS
 
 To build the tgz's and the kernel header & extras images, run:
 
 ```
-git tag v4.19.91-rancher
-
-KERNEL_TAG=4.19.91 make release
+git tag v4.19.184-sveil
+KERNEL_TAG=4.19.184 make release
 ```
 
 You should build it on an arm64 host if you want to get an arm64 kernel.
@@ -17,7 +13,10 @@ and if you're uploading them, set your GITHUB_TOKEN and login to docker hub, the
 
 (this requires https://github.com/aktau/github-release to be installed in your path)
 
-`dist/publish.sh`
+```
+go get github.com/github-release/github-release
+dist/publish.sh
+```
 
 ## packaging your own kernel builds
 
@@ -29,4 +28,3 @@ package up the result by running
 ```
 
 You may need to adjust the expected module list files.
-
