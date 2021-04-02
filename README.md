@@ -14,7 +14,8 @@ and if you're uploading them, set your GITHUB_TOKEN and login to docker hub, the
 (this requires https://github.com/aktau/github-release to be installed in your path)
 
 ```
-go get github.com/github-release/github-release
+# set your token
+export GITHUB_TOKEN=...
 dist/publish.sh
 ```
 
