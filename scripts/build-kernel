@@ -15,7 +15,7 @@ MODULE_LIST=$(readlink -f modules/${KERNEL_ARCH}/modules.list)
 MODULE_EXTRA_LIST=$(readlink -f modules/${KERNEL_ARCH}/modules-extra.list)
 
 if [ -e "/source/dist/kernel/linux-${KERNEL_VERSION}-${KERNEL_ARCH}.tar.gz" ]; then
-    echo "skipping kernel build - found linux-${KERNEL_VERSION}-rancher-${KERNEL_ARCH}.tar.gz in ./dist/kernel/"
+    echo "skipping kernel build - found linux-${KERNEL_VERSION}-sveil-${KERNEL_ARCH}.tar.gz in ./dist/kernel/"
 else
     cd ${BUILD}/${DIR}
     make ARCH=${KERNEL_ARCH} oldconfig
