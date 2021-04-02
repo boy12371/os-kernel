@@ -1,0 +1,5 @@
+build
+.buildroot-ccache
+.kernel-ccache
+.dl
+.idea

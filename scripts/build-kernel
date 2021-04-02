@@ -1,0 +1,30 @@
+#!/bin/bash
+set -e
+
+cd $(dirname $0)/..
+
+source scripts/build-common
+source scripts/version
+
+export CCACHE_DIR="${HOME}/.kernel-ccache"
+export CC="ccache gcc"
+export PATH="/usr/lib/ccache:$PATH"
+DIR=${VERSION}
+FIRMWARE=$(readlink -f firmware/${KERNEL_ARCH}/firmware)
+MODULE_LIST=$(readlink -f modules/${KERNEL_ARCH}/modules.list)
+MODULE_EXTRA_LIST=$(readlink -f modules/${KERNEL_ARCH}/modules-extra.list)
+
+if [ -e "/source/dist/kernel/linux-${KERNEL_VERSION}-${KERNEL_ARCH}.tar.gz" ]; then
+    echo "skipping kernel build - found linux-${KERNEL_VERSION}-rancher-${KERNEL_ARCH}.tar.gz in ./dist/kernel/"
+else
+    cd ${BUILD}/${DIR}
+    make ARCH=${KERNEL_ARCH} oldconfig
+    KVER=$(make ARCH=${KERNEL_ARCH} kernelrelease)
+    if [ -e "linux-${KERNEL_VERSION}-${KERNEL_ARCH}.tar" ] \
+        && [ "$KVER" == "$KERNEL_VERSION" ]; then
+        echo "Skipping kernel build, found linux-${KERNEL_VERSION}-${KERNEL_ARCH}.tar in $(pwd)"
+    else
+        echo "building $KVER"
+        make ARCH=${KERNEL_ARCH} -j$(nproc) tar-pkg
+    fi
+fi

@@ -1,0 +1,28 @@
+#!/bin/bash
+
+if [ -n "$(git status --porcelain --untracked-files=no)" ]; then
+    DIRTY="-dirty"
+fi
+
+COMMIT=$(git rev-parse --short HEAD)
+GIT_TAG=$(git tag -l --contains HEAD | head -n 1)
+
+if [[ -z "$DIRTY" && -n "$GIT_TAG" ]]; then
+    VERSION=$GIT_TAG
+else
+    VERSION="${COMMIT}${DIRTY}"
+fi
+
+SUFFIX=""
+if [ -n "${ARCH}" ] && [ "${ARCH}" != "amd64" ]; then
+    SUFFIX="_${ARCH}"
+fi
+
+case $ARCH in
+    amd64)
+        KERNEL_ARCH=x86
+        ;;
+    *)
+        KERNEL_ARCH=${ARCH}
+        ;;
+esac

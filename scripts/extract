@@ -1,0 +1,37 @@
+#!/bin/bash
+set -ex
+
+cd $(dirname $0)/..
+
+source scripts/build-common
+source scripts/version
+
+DIR=${VERSION}
+
+mkdir -p ${BUILD}
+cd ${BUILD}
+
+if [ ! -e ${DIR} ]; then
+    echo Extracting ${ARTIFACTS}/${KERNEL_TAR}
+    TEMP=$(mktemp -d -p ${BUILD})
+    mkdir ${TEMP}/${DIR}
+    trap "rm -rf ${TEMP}" exit
+
+    ls -lah ${ARTIFACTS}/${KERNEL_TAR}
+    tar xf ${ARTIFACTS}/${KERNEL_TAR} -C ${TEMP}/${DIR} --strip-components=1
+    mv ${TEMP}/${DIR} ${DIR}
+fi
+
+cp ${CONFIG}/${KERNEL_ARCH}/kernel-config ${DIR}/.config
+
+pushd .
+cd ${DIR}
+echo "are there patches in ${PATCHES}/${KERNEL_ARCH}"
+for p in `find ${PATCHES}/${KERNEL_ARCH} -name "*.patch"`; do
+    echo "patching $p"
+    patch -p1 -i $p
+done
+popd
+
+
+tar zcvf ${DIST}/kernel/linux-${KERNEL_VERSION}-${KERNEL_ARCH}-src.tgz ${DIR}
