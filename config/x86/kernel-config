@@ -3063,6 +3063,7 @@ CONFIG_IWL3945=m
 # CONFIG_USB_RIO500 is not set
 # CONFIG_XIL_AXIS_FIFO is not set
 # CONFIG_CRYPTO_SPECK is not set
+# CONFIG_R3964 is not set
 
 #
 # iwl3945 / iwl4965 Debugging Options
