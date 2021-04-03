@@ -1,5 +1,5 @@
 #!/bin/bash
-
+#
 apt-get update
 apt-get -y install build-essential asciidoc binutils bzip2 gawk gettext git libncurses5-dev \
   libz-dev patch python3 python2.7 unzip zlib1g-dev lib32gcc1 libc6-dev-i386 subversion \
@@ -16,10 +16,10 @@ apt-get -y install docker-ce docker-ce-cli containerd.io
 BIN_SH="$(ls -la /bin/sh)"
 echo "${BIN_SH}"
 if [ "${BIN_SH}" = *"bash"* ]; then
-        echo "we already use bash"
+  echo "we already use bash"
 else
-        echo "we want to change dash to bash"
-        echo "dash dash/sh boolean false" | debconf-set-selections
-        dpkg-reconfigure -f noninteractive dash
+  echo "we want to change dash to bash"
+  echo "dash dash/sh boolean false" | debconf-set-selections
+  dpkg-reconfigure -f noninteractive dash
 fi
 go get github.com/github-release/github-release
