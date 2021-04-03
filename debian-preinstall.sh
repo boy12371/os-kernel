@@ -20,6 +20,6 @@ if [ "${BIN_SH}" = *"bash"* ]; then
 else
         echo "we want to change dash to bash"
         echo "dash dash/sh boolean false" | debconf-set-selections
-        sudo dpkg-reconfigure -f noninteractive dash
+        dpkg-reconfigure -f noninteractive dash
 fi
 go get github.com/github-release/github-release
