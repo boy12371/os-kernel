@@ -3,8 +3,8 @@
 To build the tgz's and the kernel header & extras images, run:
 
 ```
-git tag v4.19-sveil
-KERNEL_TAG=4.19 make release
+git tag v4.14.228-sveil
+KERNEL_TAG=4.14.228 make release
 ```
 
 You should build it on an arm64 host if you want to get an arm64 kernel.
